@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  
+  // Force Tailwind CSS compilation
+  experimental: {
+    optimizeCss: true,
+  },
+  
   // PWA configuration
   async headers() {
     return [
@@ -34,3 +40,4 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
