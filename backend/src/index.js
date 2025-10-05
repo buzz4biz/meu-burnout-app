@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { connectMongoDB, connectPostgres } from './config/database.js';
+import { connectMongoDB } from './config/database.js';
 import reportRoutes from './routes/reportRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -19,7 +19,7 @@ app.use(helmet());
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3001'];
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: (origin, callback ) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -57,9 +57,8 @@ app.use(errorHandler);
 // Start server
 async function startServer() {
   try {
-    // Connect to databases
+    // Connect to MongoDB
     await connectMongoDB();
-    await connectPostgres();
     
     app.listen(PORT, () => {
       console.log(`🔥 Server running on port ${PORT}`);
